@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 
 //Pages
 import HomePage from "./pages/Home"
+import CountryPage from "./pages/Country"
 
 const App = () => {
   return (
     <>
       <Router>
-        <Route path="/" component={HomePage} />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/countries/:country" component={CountryPage} />
       </Router>
     </>
   )
