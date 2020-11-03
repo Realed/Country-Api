@@ -10,6 +10,48 @@ import GlobalStyles from "../components/GlobalStyles"
 const CountryWrapper = styled.div`
   padding: 20px 35px;
   background-color: #f7f5f5;
+  min-height: 92vh;
+
+  @media (min-width: 1250px) {
+    padding: 20px 12%;
+  }
+
+  main {
+    @media (min-width: 750px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .flag-wrapper,
+      .data-wrapper {
+        width: 48%;
+        height: 100%;
+      }
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .flag-wrapper {
+      min-width: 575px;
+      margin-right: 20px;
+    }
+
+    .data-wrapper {
+      height: 100%;
+
+      .data-box {
+        display: inline-block;
+        width: fit-content;
+        p {
+          width: fit-content;
+        }
+
+        &.noborder {
+          display: block;
+        }
+      }
+    }
+  }
 
   .flag-box {
     margin-top: 30px;
@@ -106,54 +148,62 @@ const CountryPage = (location) => {
                 Go Back
               </StyledLinkBtn>
             </div>
-            <div className="flag-box">
-              <img src={country.flag} alt="Country-Flag" />
-            </div>
-            <div className="title-box">
-              <h1>{country.name}</h1>
-            </div>
-            <div className="data-box">
-              <p>
-                Native Name: <span>{country.nativeName} </span>
-              </p>
-              <p>
-                Population: <span>{country.population} </span>
-              </p>
-              <p>
-                Region: <span>{country.region} </span>
-              </p>
-              <p>
-                Sub Region: <span>{country.subregion} </span>
-              </p>
-              <p>
-                Capital: <span>{country.capital} </span>
-              </p>
-            </div>
-            <div className="data-box">
-              <p>
-                Top Level Domain: <span>{country.topLevelDomain[0]} </span>
-              </p>
-              <p>
-                Currencies:{" "}
-                <span>
-                  {country.currencies[0].code} ({country.currencies[0].symbol}){" "}
-                </span>
-              </p>
-              <p>
-                Languages:{" "}
-                {country.languages.map((language) => (
-                  <span>{language.name}, </span>
-                ))}
-              </p>
-            </div>
-            <div className="data-box noborder">
-              <p>Border Countries:</p>
-              <div className="buttons-box">
-                {country.borders.map((border) => (
-                  <button>{border} </button>
-                ))}
+
+            <main>
+              <div className="flag-wrapper">
+                <div className="flag-box">
+                  <img src={country.flag} alt="Country-Flag" />
+                </div>
               </div>
-            </div>
+              <div className="data-wrapper">
+                <div className="title-box">
+                  <h1>{country.name}</h1>
+                </div>
+                <div className="data-box">
+                  <p>
+                    Native Name: <span>{country.nativeName} </span>
+                  </p>
+                  <p>
+                    Population: <span>{country.population} </span>
+                  </p>
+                  <p>
+                    Region: <span>{country.region} </span>
+                  </p>
+                  <p>
+                    Sub Region: <span>{country.subregion} </span>
+                  </p>
+                  <p>
+                    Capital: <span>{country.capital} </span>
+                  </p>
+                </div>
+                <div className="data-box">
+                  <p>
+                    Top Level Domain: <span>{country.topLevelDomain[0]} </span>
+                  </p>
+                  <p>
+                    Currencies:{" "}
+                    <span>
+                      {country.currencies[0].code} (
+                      {country.currencies[0].symbol}){" "}
+                    </span>
+                  </p>
+                  <p>
+                    Languages:{" "}
+                    {country.languages.map((language) => (
+                      <span>{language.name}, </span>
+                    ))}
+                  </p>
+                </div>
+                <div className="data-box noborder">
+                  <p>Border Countries:</p>
+                  <div className="buttons-box">
+                    {country.borders.map((border) => (
+                      <button>{border} </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </main>
           </>
         ))}
       </CountryWrapper>

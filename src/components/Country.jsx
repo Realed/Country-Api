@@ -5,6 +5,7 @@ const Country = styled.div`
   width: 100%;
   margin-bottom: 30px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 15px 0px;
+  cursor: pointer;
 
   .flag-box {
     height: 50%;

@@ -10,6 +10,10 @@ const MenuBox = styled.div`
   padding: 0 13px;
   border-bottom: 1px solid #c2c2c2;
 
+  @media (min-width: 1300px) {
+    padding: 0 11.5%;
+  }
+
   h1 {
     font-size: 1.15em;
     font-weight: 800;

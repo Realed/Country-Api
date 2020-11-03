@@ -9,6 +9,31 @@ const SearchBox = styled.div`
   background-color: #f7f5f5;
   padding: 20px;
 
+  @media (min-width: 550px) {
+    display: flex;
+
+    .filter-box {
+      margin-left: 15px;
+    }
+
+    .search-box,
+    .filter-box {
+      width: 50%;
+
+      select {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (min-width: 750px) {
+    padding: 20px 35px;
+  }
+
+  @media (min-width: 1300px) {
+    padding: 20px 13.5%;
+  }
+
   .search-box {
     width: 100%;
     height: 50px;
@@ -43,9 +68,15 @@ const SearchBox = styled.div`
       padding: 0 10px;
       border-radius: 5px;
       border: 1px solid #dddddd;
-
       option {
         height: 50%;
+      }
+    }
+
+    @media (min-width: 550px) {
+      select {
+        width: 100%;
+        height: 50px;
       }
     }
   }

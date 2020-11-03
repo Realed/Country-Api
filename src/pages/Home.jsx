@@ -13,6 +13,28 @@ const MainWrapper = styled.main`
   grid-template-columns: 1fr;
   padding: 0 45px;
   justify-content: center;
+
+  @media (min-width: 550px) {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
+    padding: 0 30px;
+  }
+
+  @media (min-width: 790px) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    /* padding: 0 30px; */
+  }
+
+  @media (min-width: 1000px) {
+    column-gap: 27.5px;
+    /* padding: 0 30px; */
+  }
+
+  @media (min-width: 1300px) {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 13.5%;
+  }
 `
 
 const HomePage = ({ history }) => {
