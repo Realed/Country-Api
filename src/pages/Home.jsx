@@ -15,29 +15,45 @@ const MainWrapper = styled.main`
   justify-content: center;
 `
 
-const HomePage = () => {
+const HomePage = ({ history }) => {
   //STATE
   const [countries, setCountries] = useState([])
 
   //FUNCIONTS
-  const getApiData = async () => {
-    const res = await fetch("https://restcountries.eu/rest/v2/all")
+  const getApiData = async (api) => {
+    const res = await fetch(api)
     const data = await res.json()
     setCountries(data)
     console.log(data)
   }
 
+  const handleChangeRegion = (e) => {
+    if (e.target.value === "America") {
+      getApiData(`https://restcountries.eu/rest/v2/region/americas`)
+    } else if (e.target.value !== "global") {
+      let region = e.target.value.toLowerCase()
+      getApiData(`https://restcountries.eu/rest/v2/region/${region}`)
+    } else if (e.target.value === "global") {
+      getApiData("https://restcountries.eu/rest/v2/all")
+    }
+  }
+
+  const handleCountryClick = (name) => {
+    console.log(history)
+    history.push(`/countries/${name}`)
+  }
+
   useEffect(() => {
-    getApiData()
+    getApiData("https://restcountries.eu/rest/v2/all")
   }, [])
 
   return (
     <>
       <GlobalStyles />
-      <Header />
+      <Header handleChangeRegion={handleChangeRegion} />
       <MainWrapper>
         {countries.map((country) => (
-          <Country key={id()}>
+          <Country key={id()} onClick={() => handleCountryClick(country.name)}>
             <div className="flag-box">
               <img src={country.flag} alt="flag" />
             </div>
