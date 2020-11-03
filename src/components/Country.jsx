@@ -3,12 +3,14 @@ import styled from "styled-components"
 const Country = styled.div`
   height: 330px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 15px 0px;
 
   .flag-box {
     height: 50%;
     width: 100%;
+    background-color: white;
+    border-radius: 7px 7px 0 0;
 
     img {
       width: 100%;
