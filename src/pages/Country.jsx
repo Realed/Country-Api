@@ -125,7 +125,6 @@ const CountryPage = (location) => {
     const res = await fetch(`https://restcountries.eu/rest/v2/name/${country}`)
     const data = await res.json()
     setCountries(data)
-    console.log(data[0])
   }
 
   let formatNumber = {
@@ -217,6 +216,11 @@ const CountryPage = (location) => {
                 </div>
                 <div className="data-box noborder">
                   <p>Border Countries:</p>
+                  {country.borders.length === 0 && (
+                    <p>
+                      <span>No border countries!</span>
+                    </p>
+                  )}
                   <div className="buttons-box">
                     {country.borders.map((border) => (
                       <button>{border} </button>

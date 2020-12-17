@@ -16,13 +16,16 @@ const SearchBox = styled.div`
       margin-left: 15px;
     }
 
-    .search-box,
-    .filter-box {
-      width: 50%;
+    .search-wrapper {
+      width: 65%;
+    }
 
-      select {
-        width: 100%;
-      }
+    .filter-box {
+      width: 35%;
+    }
+
+    select {
+      width: 100%;
     }
   }
 
@@ -82,21 +85,39 @@ const SearchBox = styled.div`
   }
 `
 
-const Header = ({ handleChangeRegion }) => {
+const Header = ({
+  handleChangeRegion,
+  handleSearchCountry,
+  searchBar,
+  handleClearSearch,
+  selectRegion,
+}) => {
   return (
     <>
       <HeaderWrapper>
         <NavMenu />
         <SearchBox>
-          <div className="search-box">
-            <img
-              src="https://img.icons8.com/ios/50/000000/search--v1.png"
-              alt="searchIcon"
-            />
-            <input type="text" placeholder="Search for a country..." />
+          <div className="search-wrapper">
+            <form
+              className="search-box"
+              action=""
+              onSubmit={handleSearchCountry}
+            >
+              <img
+                src="https://img.icons8.com/ios/50/000000/search--v1.png"
+                alt="searchIcon"
+                onClick={handleSearchCountry}
+              />
+              <input
+                type="text"
+                placeholder="Search for a country..."
+                ref={searchBar}
+                onChange={handleClearSearch}
+              />
+            </form>
           </div>
           <div className="filter-box">
-            <select onChange={handleChangeRegion}>
+            <select onChange={handleChangeRegion} ref={selectRegion}>
               <option value="global">Worldwide</option>
               <option value="Africa">Africa</option>
               <option value="America">America</option>

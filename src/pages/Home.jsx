@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { createRef, useEffect, useState } from "react"
 import styled from "styled-components"
 import { generate as id } from "shortid"
 
@@ -40,13 +40,18 @@ const MainWrapper = styled.main`
 const HomePage = ({ history }) => {
   //STATE
   const [countries, setCountries] = useState([])
+  const searchBar = createRef()
+  const selectRegion = createRef()
 
   //FUNCIONTS
   const getApiData = async (api) => {
     const res = await fetch(api)
     const data = await res.json()
-    setCountries(data)
-    console.log(data)
+    if (data.status === 404) {
+      console.log(`error`)
+    } else {
+      setCountries(data)
+    }
   }
 
   const handleChangeRegion = (e) => {
@@ -60,12 +65,28 @@ const HomePage = ({ history }) => {
     }
   }
 
+  const handleClearSearch = (e) => {
+    if (searchBar.current.value === "") {
+      getApiData("https://restcountries.eu/rest/v2/all")
+    }
+  }
+
+  const handleSearchCountry = (e) => {
+    e.preventDefault()
+    if (searchBar.current.value !== "") {
+      selectRegion.current.value = "global"
+      getApiData(
+        `https://restcountries.eu/rest/v2/name/${searchBar.current.value}`
+      )
+    }
+  }
+
   const handleCountryClick = (name) => {
     console.log(history)
     history.push(`/countries/${name}`)
   }
 
-  let formatNumber = {
+  const formatNumber = {
     separador: ",", // separador para los miles
     sepDecimal: ".", // separador para los decimales
     formatear: function (num) {
@@ -92,7 +113,13 @@ const HomePage = ({ history }) => {
   return (
     <>
       <GlobalStyles />
-      <Header handleChangeRegion={handleChangeRegion} />
+      <Header
+        handleChangeRegion={handleChangeRegion}
+        handleSearchCountry={handleSearchCountry}
+        searchBar={searchBar}
+        handleClearSearch={handleClearSearch}
+        selectRegion={selectRegion}
+      />
       <MainWrapper>
         {countries.map((country) => (
           <Country key={id()} onClick={() => handleCountryClick(country.name)}>
