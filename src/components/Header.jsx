@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import colors from "../styles/colors"
 
 //Components
 import NavMenu from "./NavMenu"
@@ -8,6 +9,8 @@ const HeaderWrapper = styled.header``
 const SearchBox = styled.div`
   background-color: #f7f5f5;
   padding: 20px;
+  background-color: ${({ darkMode }) =>
+    darkMode ? colors.darkMode.backColor : colors.lightMode.backColor};
 
   @media (min-width: 550px) {
     display: flex;
@@ -46,8 +49,12 @@ const SearchBox = styled.div`
     padding: 0 20px;
     justify-content: space-between;
     border-radius: 5px;
-    border: 1px solid #dddddd;
+    border: 1px solid #868686;
     margin-bottom: 10px;
+    background-color: ${({ darkMode }) =>
+      darkMode
+        ? colors.darkMode.backColorAccent
+        : colors.lightMode.backColorAccent};
 
     img {
       max-width: 45%;
@@ -60,6 +67,13 @@ const SearchBox = styled.div`
       height: 80%;
       width: 100%;
       border: none;
+      background-color: ${({ darkMode }) =>
+        darkMode
+          ? colors.darkMode.backColorAccent
+          : colors.lightMode.backColorAccent};
+
+      color: ${({ darkMode }) =>
+        darkMode ? colors.darkMode.colorAccent : colors.lightMode.colorAccent};
     }
   }
 
@@ -70,7 +84,14 @@ const SearchBox = styled.div`
       background-color: white;
       padding: 0 10px;
       border-radius: 5px;
-      border: 1px solid #dddddd;
+      border: 1px solid #868686;
+      background-color: ${({ darkMode }) =>
+        darkMode
+          ? colors.darkMode.backColorAccent
+          : colors.lightMode.backColorAccent};
+
+      color: ${({ darkMode }) =>
+        darkMode ? colors.darkMode.colorAccent : colors.lightMode.colorAccent};
       option {
         height: 50%;
       }
@@ -91,12 +112,14 @@ const Header = ({
   searchBar,
   handleClearSearch,
   selectRegion,
+  handleChangeTheme,
+  darkMode,
 }) => {
   return (
     <>
       <HeaderWrapper>
-        <NavMenu />
-        <SearchBox>
+        <NavMenu handleChangeTheme={handleChangeTheme} darkMode={darkMode} />
+        <SearchBox darkMode={darkMode}>
           <div className="search-wrapper">
             <form
               className="search-box"
@@ -104,7 +127,12 @@ const Header = ({
               onSubmit={handleSearchCountry}
             >
               <img
-                src="https://img.icons8.com/ios/50/000000/search--v1.png"
+                src={
+                  darkMode
+                    ? "https://icon-library.com/images/white-search-icon-png/white-search-icon-png-17.jpg"
+                    : "https://img.icons8.com/ios/50/000000/search--v1.png"
+                }
+                // src="https://img.icons8.com/ios/50/000000/search--v1.png"
                 alt="searchIcon"
                 onClick={handleSearchCountry}
               />

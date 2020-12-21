@@ -7,13 +7,28 @@ import NavMenu from "../components/NavMenu"
 import GlobalStyles from "../components/GlobalStyles"
 
 //STYLES
+import colors from "../styles/colors"
+
 const CountryWrapper = styled.div`
   padding: 20px 35px;
-  background-color: #f7f5f5;
-  min-height: 92vh;
+  background-color: ${({ darkMode }) =>
+    darkMode ? colors.darkMode.backColor : colors.lightMode.backColor};
+
+  h1,
+  p {
+    color: ${({ darkMode }) =>
+      darkMode ? colors.darkMode.colorAccent : colors.lightMode.colorAccent};
+  }
+
+  p span {
+    color: ${({ darkMode }) =>
+      darkMode ? colors.darkMode.color : colors.lightMode.color};
+  }
+
+  min-height: 92.5vh;
 
   @media (min-width: 1250px) {
-    padding: 20px 12%;
+    padding: 20px 13.5%;
   }
 
   main {
@@ -95,20 +110,30 @@ const CountryWrapper = styled.div`
         background-color: white;
         padding: 5px 10px;
         border: 1px solid #dddddd;
+
+        border: 1px solid
+          ${({ darkMode }) =>
+            darkMode ? colors.darkMode.backColorAccent : "#cfcfcf"};
       }
     }
   }
 `
 
 const StyledLinkBtn = styled(Link)`
-  background-color: white;
+  background-color: ${({ darkMode }) =>
+    darkMode
+      ? colors.darkMode.backColorAccent
+      : colors.lightMode.backColorAccent};
+
+  color: ${({ darkMode }) =>
+    darkMode ? colors.darkMode.colorAccent : colors.lightMode.colorAccent};
+
   width: 100px;
   min-height: 35px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 12px 0px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  color: black;
   text-decoration: none;
 
   img {
@@ -119,6 +144,7 @@ const StyledLinkBtn = styled(Link)`
 
 const CountryPage = (location) => {
   const [countries, setCountries] = useState([])
+  const [darkMode, setDarkMode] = useState(false)
 
   const getCountryData = async () => {
     let country = location.match.params.country.toLowerCase()
@@ -147,6 +173,11 @@ const CountryPage = (location) => {
     },
   }
 
+  const handleChangeTheme = () => {
+    setDarkMode(!darkMode)
+    console.log(`dark theme cambiado`)
+  }
+
   useEffect(() => {
     getCountryData()
   }, [])
@@ -154,16 +185,18 @@ const CountryPage = (location) => {
   return (
     <>
       <GlobalStyles />
-      <NavMenu />
-      <CountryWrapper>
+      <NavMenu darkMode={darkMode} handleChangeTheme={handleChangeTheme} />
+      <CountryWrapper darkMode={darkMode}>
         {countries.map((country) => (
           <>
             <div className="goback-box">
-              <StyledLinkBtn exact to="/">
-                <img
-                  src="https://img.icons8.com/ios/452/long-arrow-left.png"
-                  alt=""
-                />
+              <StyledLinkBtn exact to="/" darkMode={darkMode}>
+                {!darkMode && (
+                  <img
+                    src="https://img.icons8.com/ios/452/long-arrow-left.png"
+                    alt=""
+                  />
+                )}
                 Go Back
               </StyledLinkBtn>
             </div>

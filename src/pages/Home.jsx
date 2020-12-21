@@ -7,12 +7,29 @@ import Header from "../components/Header"
 import GlobalStyles from "../components/GlobalStyles"
 import Country from "../components/Country"
 
+//Styles
+import colors from "../styles/colors"
+
 const MainWrapper = styled.main`
-  background-color: #f7f5f5;
+  background-color: ${({ darkMode }) =>
+    darkMode ? colors.darkMode.backColor : colors.lightMode.backColor};
   display: grid;
   grid-template-columns: 1fr;
   padding: 0 45px;
   justify-content: center;
+  min-height: 81.9vh;
+
+  h1 {
+    color: ${({ darkMode }) =>
+      darkMode ? colors.darkMode.colorAccent : colors.lightMode.colorAccent};
+  }
+
+  p,
+  button,
+  a {
+    color: ${({ darkMode }) =>
+      darkMode ? colors.darkMode.color : colors.lightMode.color};
+  }
 
   @media (min-width: 550px) {
     grid-template-columns: 1fr 1fr;
@@ -42,6 +59,7 @@ const HomePage = ({ history }) => {
   const [countries, setCountries] = useState([])
   const searchBar = createRef()
   const selectRegion = createRef()
+  const [darkMode, setDarkMode] = useState(false)
 
   //FUNCIONTS
   const getApiData = async (api) => {
@@ -52,6 +70,12 @@ const HomePage = ({ history }) => {
     } else {
       setCountries(data)
     }
+  }
+
+  const handleChangeTheme = () => {
+    setDarkMode(!darkMode)
+    localStorage.setItem("darkMode", !darkMode)
+    console.log(`dark theme cambiado`)
   }
 
   const handleChangeRegion = (e) => {
@@ -82,7 +106,6 @@ const HomePage = ({ history }) => {
   }
 
   const handleCountryClick = (name) => {
-    console.log(history)
     history.push(`/countries/${name}`)
   }
 
@@ -119,10 +142,16 @@ const HomePage = ({ history }) => {
         searchBar={searchBar}
         handleClearSearch={handleClearSearch}
         selectRegion={selectRegion}
+        handleChangeTheme={handleChangeTheme}
+        darkMode={darkMode}
       />
-      <MainWrapper>
+      <MainWrapper darkMode={darkMode}>
         {countries.map((country) => (
-          <Country key={id()} onClick={() => handleCountryClick(country.name)}>
+          <Country
+            darkMode={darkMode}
+            key={id()}
+            onClick={() => handleCountryClick(country.name)}
+          >
             <div className="flag-box">
               <img src={country.flag} alt="flag" />
             </div>

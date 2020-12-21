@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import colors from "../styles/colors"
 
 const Country = styled.div`
   height: 330px;
@@ -10,7 +11,10 @@ const Country = styled.div`
   .flag-box {
     height: 50%;
     width: 100%;
-    background-color: white;
+    background-color: ${({ darkMode }) =>
+      darkMode
+        ? colors.darkMode.backColorAccent
+        : colors.lightMode.backColorAccent};
     border-radius: 7px 7px 0 0;
 
     img {
@@ -24,7 +28,10 @@ const Country = styled.div`
     height: 50%;
     width: 100%;
     padding: 20px;
-    background-color: white;
+    background-color: ${({ darkMode }) =>
+      darkMode
+        ? colors.darkMode.backColorAccent
+        : colors.lightMode.backColorAccent};
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
